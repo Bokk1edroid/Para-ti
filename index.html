@@ -3,90 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para el amor de mi vida 💖</title>
+    <title>Para el amor de mi vida 💛</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle, #2b1055, #7597de);
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
             font-family: 'Georgia', serif;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            color: #fff;
+            color: white;
         }
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            max-width: 450px;
-            width: 85%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: fadeIn 2s ease-in-out;
+        /* Pantalla de inicio "Toca para iniciar" */
+        #welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 1s ease;
         }
 
-        .flowers-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
-        }
-
-        h1 {
-            color: #ffb6c1;
-            font-size: 1.8rem;
+        .flower-icon {
+            font-size: 4rem;
             margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 1.5s infinite;
         }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #f0f0f0;
-            margin-bottom: 25px;
+        #welcome-screen h2 {
+            font-size: 1.8rem;
+            color: #ffe135;
+            font-weight: normal;
+            letter-spacing: 1px;
         }
 
-        .signature {
-            font-size: 0.95rem;
-            color: #ffccd5;
-            font-style: italic;
+        /* Contenido principal de la galaxia */
+        #main-content {
+            opacity: 0;
+            transition: opacity 2s ease;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .galaxy-title {
+            position: absolute;
+            top: 10%;
+            font-size: 1.8rem;
+            color: #ffe135;
+            text-shadow: 0 0 10px rgba(255, 225, 53, 0.6);
+            animation: floatText 3s ease-in-out infinite alternate;
+        }
+
+        .orbit-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .planet-center {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #332b00, #000);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ffe135;
+            z-index: 2;
+        }
+
+        /* Rosas amarillas flotantes alrededor */
+        .floating-flower {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatAround 6s linear infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes floatText {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Icono con rosas y flores de loto -->
-        <div class="flowers-icon">🌹🪷🌹</div>
-        
-        <h1>Para ti, mi amor</h1>
-        
-        <p>
-            Dicen que las flores más bellas son difíciles de encontrar, pero tú eres la flor de loto y la rosa más hermosa que llegó a mi vida para iluminarla por completo.<br><br>
-            Gracias por existir y por hacer que cada día florezca a tu lado. <strong>¡Te amo muchísimo!</strong>
-        </p>
-
-        <div class="signature">
-            Hecho con todo mi corazón para ti 💖
-        </div>
+    <!-- Pantalla de inicio -->
+    <div id="welcome-screen" onclick="startExperience()">
+        <div class="flower-icon">💛</div>
+        <h2>Toca para iniciar</h2>
     </div>
 
+    <!-- Contenido que aparece al hacer clic -->
+    <div id="main-content">
+        <div class="galaxy-title">💛 Feliz Día de las Rosas Amarillas 💛</div>
+        
+        <div class="orbit-container">
+            <div class="planet-center"></div>
+            <!-- Rosas amarillas orbitando -->
+            <div class="floating-flower" style="top: -50px; left: 20px;">💛</div>
+            <div class="floating-flower" style="bottom: -30px; right: 40px;">💛</div>
+            <div class="floating-flower" style="top: 80px; right: -60px;">💛</div>
+            <div class="floating-flower" style="bottom: 50px; left: -50px;">💛</div>
+        </div>
+
+        <p style="margin-top: 40px; color: #fff3a1; font-size: 1.2rem; max-width: 80%; text-shadow: 0 0 5px rgba(0,0,0,0.8);">
+            Cada rosa amarilla que ves aquí es un latido de mi corazón.<br>
+            Así como el sol ilumina los campos, tú iluminas mi vida.<br>
+            <strong>¡Te amo muchísimo!</strong>
+        </p>
+    </div>
+
+    <!-- Audio de fondo romántico -->
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function startExperience() {
+            var welcome = document.getElementById('welcome-screen');
+            var mainContent = document.getElementById('main-content');
+            var music = document.getElementById('bg-music');
+
+            // Reproduce la música al hacer clic
+            music.play().catch(error => {
+                console.log("Audio autoplay bloqueado o error:", error);
+            });
+
+            // Desvanece la pantalla de bienvenida y muestra la galaxia
+            welcome.style.opacity = 0;
+            setTimeout(function() {
+                welcome.style.display = 'none';
+                mainContent.style.opacity = 1;
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
-
