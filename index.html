@@ -1,89 +1,63 @@
-<!-- Dev de Corazon 
-     El codigo de la galaxia de flores amarillas
-     -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Feliz Día de las Flores Amarillas | Galaxia 3D</title>
+    <title>Galaxia de Flores Amarillas</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            font-family: 'Poppins', 'Segoe UI', 'Quicksand', 'Fredoka One', cursive, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
             color: #fff;
             background-color: #020210;
         }
         canvas {
             display: block;
         }
-
-        /* Mensaje central: Feliz día */
         .greeting {
             position: absolute;
-            top: 30px;
+            top: 20px;
             left: 0;
             right: 0;
             text-align: center;
             pointer-events: none;
             z-index: 20;
-            font-size: 2.5rem;
+            padding: 0 15px;
+        }
+        .top-quote {
+            font-size: 0.9rem;
+            color: #fce8a6;
+            margin-bottom: 5px;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+        .main-title {
+            font-size: 2rem;
             font-weight: 800;
-            text-shadow: 0 0 20px rgba(0,0,0,0.5), 0 0 5px #ffaa33;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5), 0 0 8px #ffaa33;
             background: linear-gradient(135deg, #FFE55C, #FFB347);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
-            animation: fadeInDown 1s ease-out;
+            margin: 0;
         }
-        .greeting small {
-            font-size: 1.1rem;
+        .sub-title {
+            font-size: 1rem;
             display: block;
             color: #FFDE7A;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
             text-shadow: 0 0 8px rgba(0,0,0,0.6);
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 500;
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Controles y badge */
-        .badge-control {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 40px;
-            padding: 6px 16px;
-            font-size: 0.7rem;
-            pointer-events: none;
-            font-weight: 500;
-            color: #FFD966;
-            border: 1px solid #FFD96680;
-            z-index: 15;
         }
         .control-hint {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(4px);
-            padding: 5px 12px;
+            padding: 6px 16px;
             border-radius: 30px;
             font-size: 0.7rem;
             pointer-events: none;
@@ -92,24 +66,24 @@
             letter-spacing: 1px;
             color: #FFE0A3;
             z-index: 15;
+            border: 1px solid rgba(255, 217, 102, 0.3);
         }
         @media (max-width: 700px) {
-            .greeting { font-size: 1.6rem; top: 20px; }
-            .greeting small { font-size: 0.8rem; }
-            .badge-control { font-size: 0.6rem; }
-            .control-hint { font-size: 0.6rem; white-space: nowrap; }
+            .top-quote { font-size: 0.75rem; }
+            .main-title { font-size: 1.5rem; }
+            .sub-title { font-size: 0.85rem; }
+            .control-hint { font-size: 0.58rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Mensaje -->
     <div class="greeting">
-        🌻 Feliz día de las Flores Amarillas 🌻
-        <small>✨ Un ramo de estrellas para ti ✨</small>
+        <div class="top-quote">ya saben como dijo un grande una vez, si puedes imaginarlo, puedes programarlo,</div>
+        <h1 class="main-title">🌻 Feliz Día de las Flores Amarillas 🌻</h1>
+        <small class="sub-title">✨ Un ramo de estrellas para ti ✨</small>
     </div>
 
-    <div class="badge-control">🌀 360° | Galaxia de Girasoles</div>
     <div class="control-hint">🖱️ Arrastra para rotar 360° | Zoom con scroll</div>
 
     <script type="importmap">
@@ -128,7 +102,6 @@
         import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
         import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
-        // --- Escena ---
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x020210);
         scene.fog = new THREE.FogExp2(0x020210, 0.00045);
@@ -144,7 +117,6 @@
         renderer.toneMappingExposure = 1.3;
         document.body.appendChild(renderer.domElement);
 
-        // --- Postprocesado bloom ---
         const renderScene = new RenderPass(scene, camera);
         const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.4, 0.85);
         bloomPass.threshold = 0.08;
@@ -154,7 +126,6 @@
         effectComposer.addPass(renderScene);
         effectComposer.addPass(bloomPass);
 
-        // --- Controles 360° ---
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.06;
@@ -166,7 +137,6 @@
         controls.autoRotateSpeed = 0.65;
         controls.target.set(0, 0.5, 0);
 
-        // ---------- 1. FLORES EN FORMA DE GALAXIA ----------
         function createFlowerTexture(type) {
             const canvas = document.createElement('canvas');
             canvas.width = 128;
@@ -343,7 +313,6 @@
         const flowerPoints = new THREE.Points(flowerGeometry, flowerMaterial);
         scene.add(flowerPoints);
 
-        // ---------- 2. RAMOS DE GIRASOLES EN 3D ----------
         function createSunflower(x, z, yOffset = 0, scaleFactor = 1.0) {
             const group = new THREE.Group();
             
@@ -436,7 +405,6 @@
         });
         scene.add(sunflowersGroup);
         
-        // ---------- 3. FONDO: ESTRELLAS ----------
         const starCount = 3000;
         const starGeo = new THREE.BufferGeometry();
         const starPos = new Float32Array(starCount * 3);
@@ -450,14 +418,12 @@
         const stars = new THREE.Points(starGeo, starMat);
         scene.add(stars);
 
-        // --- Iluminación ---
         const ambientLight = new THREE.AmbientLight(0xfffaed, 1.2);
         scene.add(ambientLight);
         const pointLight = new THREE.PointLight(0xffd700, 2.5, 50);
         pointLight.position.set(0, 2, 0);
         scene.add(pointLight);
 
-        // --- Loop de Animación ---
         const clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
@@ -471,10 +437,12 @@
         }
         animate();
 
-        // --- Responsive ---
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             effectComposer.setSize(window.innerWidth, window.innerHeight);
-        })
+        });
+    </script>
+</body>
+</html>
