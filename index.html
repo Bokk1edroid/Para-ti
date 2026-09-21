@@ -18,7 +18,7 @@
             color: #ffe135;
         }
 
-        /* Pantalla de inicio */
+        /* Pantalla de inicio "Toca para iniciar" idéntica */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -38,14 +38,14 @@
         .center-flower {
             font-size: 5rem;
             animation: pulseFlower 1.5s infinite alternate;
-            text-shadow: 0 0 20px #ffe135;
+            text-shadow: 0 0 25px #ffe135;
         }
 
         #welcome-screen h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-top: 15px;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 225, 53, 0.5);
+            text-shadow: 0 0 10px rgba(255, 225, 53, 0.6);
         }
 
         /* Contenedor de la Galaxia */
@@ -62,44 +62,44 @@
 
         .sun-center {
             position: absolute;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, #221c00 0%, #000 70%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #332b00 0%, #000 75%);
             border-radius: 50%;
-            box-shadow: 0 0 60px #ffe135, inset 0 0 30px #ffea75;
+            box-shadow: 0 0 70px #ffe135, inset 0 0 40px #ffea75;
             z-index: 10;
         }
 
-        /* Título superior */
         .top-title {
             position: absolute;
-            top: 5%;
+            top: 6%;
             width: 100%;
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             text-shadow: 0 0 15px #ffe135;
             z-index: 20;
+            letter-spacing: 1px;
         }
 
-        /* Órbitas de frases y rosas flotantes */
+        /* Órbita de frases y rosas */
         .orbit {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             border-radius: 50%;
-            animation: rotateGalaxy 25s linear infinite;
+            animation: rotateGalaxy 30s linear infinite;
         }
 
         .item-floating {
             position: absolute;
             white-space: nowrap;
-            font-size: 1.4rem;
-            text-shadow: 0 0 8px rgba(255, 225, 53, 0.8);
+            font-size: 1.6rem;
+            text-shadow: 0 0 10px rgba(255, 225, 53, 0.9);
         }
 
         @keyframes pulseFlower {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px #ffe135); }
-            100% { transform: scale(1.15); filter: drop-shadow(0 0 25px #ffe135); }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.18); }
         }
 
         @keyframes rotateGalaxy {
@@ -110,27 +110,24 @@
 </head>
 <body>
 
-    <!-- Pantalla de inicio -->
     <div id="welcome-screen" onclick="initExperience()">
-        <div class="center-flower">🌻</div>
+        <div class="center-flower">💛</div>
         <h2>Toca para iniciar</h2>
     </div>
 
-    <!-- Escenario de la Galaxia -->
     <div id="galaxy-container">
-        <div class="top-title">Feliz Día de las Rosas Amarillas</div>
+        <div class="top-title">Feliz Día de las Rosas Amarillas 💛</div>
         <div class="sun-center"></div>
 
         <div class="orbit">
-            <div class="item-floating" style="top: 0; left: 50%;">💛 Eres mi luz</div>
-            <div class="item-floating" style="bottom: 0; left: 40%;">🌹 Te amo</div>
-            <div class="item-floating" style="top: 30%; left: 0;">✨ Mi mitad</div>
-            <div class="item-floating" style="top: 70%; right: 0;">🌻 Para ti con amor</div>
-            <div class="item-floating" style="top: 15%; right: 10%;">💛 Siempre juntos</div>
+            <div class="item-floating" style="top: -10px; left: 50%;">💛 Eres mi sol</div>
+            <div class="item-floating" style="bottom: -10px; left: 40%;">🌹 Te amo muchísimo</div>
+            <div class="item-floating" style="top: 25%; left: -30px;">✨ Mi gran amor</div>
+            <div class="item-floating" style="top: 70%; right: -40px;">🌻 Para ti, mi vida</div>
+            <div class="item-floating" style="top: 10%; right: 0;">💛 Siempre juntos</div>
         </div>
     </div>
 
-    <!-- Audio de respaldo -->
     <audio id="background-music" loop>
         <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
     </audio>
