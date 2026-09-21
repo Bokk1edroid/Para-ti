@@ -3,148 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para el amor de mi vida 💛</title>
+    <title>Flores Amarillas & Galaxia Cósmica</title>
+    <!-- Three.js para la galaxia 3D y GSAP para animaciones fluidas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
-
-        body, html {
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            font-family: 'Caveat', cursive, serif;
-            overflow: hidden;
-            color: #ffe135;
+            box-sizing: border-box;
         }
 
-        /* Pantalla de inicio "Toca para iniciar" idéntica */
-        #welcome-screen {
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+        }
+
+        /* Pantalla inicial del Girasol */
+        #intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: radial-gradient(circle, #1a1a00 0%, #000000 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 999;
+            z-index: 100;
+            transition: opacity 1.5s ease;
+        }
+
+        .sunflower-container {
             cursor: pointer;
-            transition: opacity 1.2s ease;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .center-flower {
-            font-size: 5rem;
-            animation: pulseFlower 1.5s infinite alternate;
-            text-shadow: 0 0 25px #ffe135;
+        /* Dibujo CSS estilizado del Girasol */
+        .sunflower {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            margin: 0 auto 20px auto;
         }
 
-        #welcome-screen h2 {
-            font-size: 2.2rem;
-            margin-top: 15px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 225, 53, 0.6);
-        }
-
-        /* Contenedor de la Galaxia */
-        #galaxy-container {
+        .petals {
             position: absolute;
             width: 100%;
             height: 100%;
-            opacity: 0;
-            transition: opacity 2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            animation: rotatePetals 20s linear infinite;
         }
 
-        .sun-center {
+        .petal {
             position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, #332b00 0%, #000 75%);
+            width: 40px;
+            height: 60px;
+            background: linear-gradient(to top, #ffcc00, #ffea6c);
+            border-radius: 50% 50% 20% 20%;
+            top: 30px;
+            left: 40px;
+            transform-origin: center bottom;
+        }
+
+        /* Posicionar los pétalos alrededor del centro */
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-25px); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-25px); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-25px); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-25px); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-25px); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-25px); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-25px); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-25px); }
+
+        .center-disc {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #5c2c16 0%, #301408 100%);
             border-radius: 50%;
-            box-shadow: 0 0 70px #ffe135, inset 0 0 40px #ffea75;
-            z-index: 10;
+            top: 35px;
+            left: 35px;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
 
-        .top-title {
-            position: absolute;
-            top: 6%;
-            width: 100%;
-            text-align: center;
-            font-size: 2.8rem;
-            text-shadow: 0 0 15px #ffe135;
-            z-index: 20;
-            letter-spacing: 1px;
-        }
-
-        /* Órbita de frases y rosas */
-        .orbit {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            animation: rotateGalaxy 30s linear infinite;
-        }
-
-        .item-floating {
-            position: absolute;
-            white-space: nowrap;
-            font-size: 1.6rem;
-            text-shadow: 0 0 10px rgba(255, 225, 53, 0.9);
-        }
-
-        @keyframes pulseFlower {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.18); }
-        }
-
-        @keyframes rotateGalaxy {
+        @keyframes rotatePetals {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instruction-text {
+            font-size: 1.2rem;
+            color: #ffe600;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        /* Lienzo 3D de la Galaxia */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* Capa de Frases Luminosas y Fotos Flotantes en HTML superpuesta */
+        #content-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none; /* Para que no bloqueen los clics del mouse en la galaxia */
+            display: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(10, 10, 20, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(5px);
+            max-width: 220px;
+            text-align: center;
+            pointer-events: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-element:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            border-color: #ffd700;
+        }
+
+        .floating-element img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .floating-element p {
+            font-size: 0.85rem;
+            color: #fff1a8;
+            text-shadow: 0 0 8px rgba(255, 230, 0, 0.8);
         }
     </style>
 </head>
 <body>
 
-    <div id="welcome-screen" onclick="initExperience()">
-        <div class="center-flower">💛</div>
-        <h2>Toca para iniciar</h2>
-    </div>
-
-    <div id="galaxy-container">
-        <div class="top-title">Feliz Día de las Rosas Amarillas 💛</div>
-        <div class="sun-center"></div>
-
-        <div class="orbit">
-            <div class="item-floating" style="top: -10px; left: 50%;">💛 Eres mi sol</div>
-            <div class="item-floating" style="bottom: -10px; left: 40%;">🌹 Te amo muchísimo</div>
-            <div class="item-floating" style="top: 25%; left: -30px;">✨ Mi gran amor</div>
-            <div class="item-floating" style="top: 70%; right: -40px;">🌻 Para ti, mi vida</div>
-            <div class="item-floating" style="top: 10%; right: 0;">💛 Siempre juntos</div>
+    <!-- Pantalla de inicio con el Girasol -->
+    <div id="intro-screen">
+        <div class="sunflower-container" id="sunflower-btn">
+            <div class="sunflower">
+                <div class="petals">
+                    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+                    <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+                </div>
+                <div class="center-disc"></div>
+            </div>
+            <div class="instruction-text">Toca el girasol 🌻</div>
         </div>
     </div>
 
-    <audio id="background-music" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+    <!-- Contenedor del fondo 3D (Galaxia + Agujero Negro) -->
+    <div id="canvas-container"></div>
+
+    <!-- Elementos flotantes (Frases del Día de las Flores Amarillas + Fotos) -->
+    <div id="content-layer"></div>
+
+    <!-- Audio de Coldplay - The Scientist (Usando un stream/audio público seguro) -->
+    <audio id="bg-audio" loop>
+        <source src="https://cdns-preview-d.dzcdn.net/stream/c-deda738a163a8e9e76fa2e7d4bc9f1cb-3.mp3" type="audio/mp3">
+        Tu navegador no soporta audio.
     </audio>
 
     <script>
-        function initExperience() {
-            var welcome = document.getElementById('welcome-screen');
-            var galaxy = document.getElementById('galaxy-container');
-            var music = document.getElementById('background-music');
+        // Frases y datos de las fotos flotantes
+        const itemsData = [
+            { text: "«Y tu mirar, tan amarillo, ilumina todo mi universo...»", img: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=400&q=80" },
+            { text: "«Flores amarillas para un amor que trasciende galaxias.»", img: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=400&q=80" },
+            { text: "«Nadie dijo que fuera fácil, oh, llevame de regreso al principio...» 🎶", img: "https://images.unsplash.com/photo-1508873696983-2df5f920cac9?auto=format&fit=crop&w=400&q=80" },
+            { text: "«Un pequeño detalle para un gran destello en mi vida.»", img: "https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=400&q=80" },
+            { text: "«Brillas más que las estrellas en este agujero negro de la rutina.»", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" }
+        ];
 
-            music.play().catch(e => console.log("Audio bloqueado por navegador"));
+        const sunflowerBtn = document.getElementById('sunflower-btn');
+        const introScreen = document.getElementById('intro-screen');
+        const canvasContainer = document.getElementById('canvas-container');
+        const contentLayer = document.getElementById('content-layer');
+        const audio = document.getElementById('bg-audio');
 
-            welcome.style.opacity = '0';
-            setTimeout(function() {
-                welcome.style.display = 'none';
-                galaxy.style.opacity = '1';
-            }, 1000);
+        let galaxyStarted = false;
+
+        // Interacción al presionar el girasol
+        sunflowerBtn.addEventListener('click', () => {
+            if (galaxyStarted) return;
+            galaxyStarted = true;
+
+            // Reproducir música (The Scientist)
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Audio autoplay bloqueado por navegador, requiere interacción:", e));
+
+            // Desvanecer pantalla de inicio
+            gsap.to(introScreen, {
+                opacity: 0,
+                duration: 1.5,
+                onComplete: () => {
+                    introScreen.style.display = 'none';
+                    canvasContainer.style.opacity = 1;
+                    contentLayer.style.display = 'block';
+                    initGalaxy();
+                    createFloatingElements();
+                }
+            });
+        });
+
+        // Configuración de la Galaxia 3D con Three.js
+        function initGalaxy() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 40, 60);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            canvasContainer.appendChild(renderer.domElement);
+
+            // Luz ambiental
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            // --- AGUJERO NEGRO Y ANILLO DORADO ---
+            // Centro oscuro (Agujero negro)
+            const blackHoleGeo = new THREE.SphereGeometry(4, 32, 32);
+            const blackHoleMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const blackHole = new THREE.Mesh(blackHoleGeo, blackHoleMat);
+            scene.add(blackHole);
+
+            // Anillo dorado brillante (Acreción)
+            const ringGeo = new THREE.RingGeometry(5, 9, 64);
+            const ringMat = new THREE.MeshBasicMaterial({ 
+                color: 0xffd700, 
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.8
+            });
+            const goldRing = new THREE.Mesh(ringGeo, ringMat);
+            goldRing.rotation.x = Math.PI / 2.5;
+            scene.add(goldRing);
+
+            // --- ESPIRAL DE LA GALAXIA ---
+            const particlesCount = 15000;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particlesCount * 3);
+            const colors = new Float32Array(particlesCount * 3);
+
+            const colorInside = new THREE.Color('#ffe600'); // Amarillo floral
+            const colorOutside = new THREE.Color('#1a53ff'); // Azul galáctico
+
+            for (let i = 0; i < particlesCount; i++) {
+                const i3 = i * 3;
+
+                // Posición en espiral
+                const radius = Math.random() * 45 + 5;
+                const spinAngle = radius * 0.3;
+                const branchAngle = ((i % 3) * Math.PI * 2) / 3;
+
+                const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 3;
+                const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 3;
+                const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 3;
+
+                positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+                positions[i3 + 1] = randomY;
+                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+                // Color interpolado (más amarillo al centro, azul/blanco afuera)
+                const mixedColor = colorInside.clone();
+                mixedColor.lerp(colorOutside, radius / 50);
+
+                colors[i3] = mixedColor.r;
+                colors[i3 + 1] = mixedColor.g;
+                colors[i3 + 2] = mixedColor.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // Partículas con textura suave simulada
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.7,
+                sizeAttenuation: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            const galaxyPoints = new THREE.Points(geometry, particleMaterial);
+            scene.add(galaxyPoints);
+
+            // Interacción del mouse para rotar ligeramente la galaxia
+            let mouseX = 0, mouseY = 0;
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+            });
+
+            // Animación continua (Loop principal)
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Rotar galaxia y anillo
+                galaxyPoints.rotation.y += 0.0015;
+                goldRing.rotation.z -= 0.003;
+
+                // Movimiento suave de cámara basado en mouse
+                camera.position.x += (mouseX * 20 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 20 - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Ajuste responsivo de la ventana
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        // Generar elementos flotantes distribuidos en la pantalla
+        function createFloatingElements() {
+            itemsData.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = 'floating-element';
+
+                // Posiciones aleatorias en pantalla
+                const posX = 10 + (index * 18) % 75;
+                const posY = 15 + (index * 22) % 65;
+                el.style.left = `${posX}%`;
+                el.style.top = `${posY}%`;
+
+                el.innerHTML = `
+                    <img src="${item.img}" alt="Recuerdo">
+                    <p>${item.text}</p>
+                `;
+
+                // Animación de flotación independiente con GSAP
+                gsap.to(el, {
+                    y: "random(-15, 15)",
+                    x: "random(-10, 10)",
+                    rotation: "random(-3, 3)",
+                    duration: "random(3, 5)",
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+
+                contentLayer.appendChild(el);
+            });
         }
     </script>
 </body>
